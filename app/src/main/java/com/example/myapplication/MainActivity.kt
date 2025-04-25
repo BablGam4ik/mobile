@@ -43,7 +43,10 @@ class MainActivity : AppCompatActivity() {
                 exitProcess(0) // Полное завершение приложения (опционально)
                 return
             }
-
+            when (ch.toLowerCase()) {
+                'a', 'e', 'i', 'o', 'u' -> Toast.makeText(this, "Это гласные буквы", Toast.LENGTH_SHORT).show()
+                else -> Toast.makeText(this, "Возможно, это согласные буквы", Toast.LENGTH_SHORT).show()
+            }
 
         }
     }

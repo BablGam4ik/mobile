@@ -8,8 +8,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import kotlin.system.exitProcess
 
-private fun MainActivity.checkCharacter(string: String) {}
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         checkButton.setOnClickListener {
             checkCharacter(textEdit.text.toString())
-        }
+        }}
         fun checkCharacter(input: String) {
             val trimmedInput = input.trim()
 
@@ -36,6 +36,19 @@ class MainActivity : AppCompatActivity() {
             }
 
             val ch = trimmedInput.first()
+
+            if (!ch.isLetter() || !isLatinLetter(ch)) {
+                Toast.makeText(this, "Символ не является латинской буквой", Toast.LENGTH_SHORT).show()
+                finish() // Завершение активности
+                exitProcess(0) // Полное завершение приложения (опционально)
+                return
+            }
+
+
         }
     }
-}
+
+    private fun isLatinLetter(ch: Char): Boolean {
+        return ch in 'A'..'Z' || ch in 'a'..'z'
+
+    }

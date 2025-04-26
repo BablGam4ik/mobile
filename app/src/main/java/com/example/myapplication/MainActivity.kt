@@ -16,5 +16,20 @@ class MainActivity : AppCompatActivity() {
         val inputField = findViewById<EditText>(R.id.inputNumber)
         val calculateButton = findViewById<Button>(R.id.calculateButton)
         val resultText = findViewById<TextView>(R.id.resultText)
+        calculateButton.setOnClickListener {
+            try {
+                val n = inputField.text.toString().toInt()
+                if (n <= 0) {
+                    Toast.makeText(this, "Введите положительное число", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
+                val result = calculateSeriesSum(n)
+                resultText.text = "Результат: $result"
+            } catch (e: NumberFormatException) {
+                Toast.makeText(this, "Введите корректное число", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
+
 }

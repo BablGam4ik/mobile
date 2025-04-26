@@ -32,4 +32,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun calculateSeriesSum(n: Int): BigDecimal {
+        var sum = BigDecimal.ZERO
+        var factorial = BigDecimal.ONE
+
+        for (i in 1..n) {
+            factorial = factorial.multiply(BigDecimal.valueOf(i.toLong()))
+            sum = sum.add(BigDecimal.ONE.divide(factorial, 20, RoundingMode.HALF_UP))
+        }
+
+        return sum.setScale(10, RoundingMode.HALF_UP)
+    }
 }

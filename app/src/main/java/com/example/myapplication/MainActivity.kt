@@ -9,5 +9,12 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
+        val inputField = findViewById<EditText>(R.id.inputNumber)
+        val calculateButton = findViewById<Button>(R.id.calculateButton)
+        val resultText = findViewById<TextView>(R.id.resultText)
+    }
 }

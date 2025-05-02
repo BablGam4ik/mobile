@@ -4,5 +4,41 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Введите строку:"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/inputString"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Введите текст с цифрами и буквами"
+        android:textSize="18sp"/>
+
+    <Button
+        android:id="@+id/processButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Обработать"
+        android:layout_marginTop="16dp"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/modifiedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginTop="24dp"/>
+
+    <TextView
+        android:id="@+id/resultText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:textStyle="bold"/>
 </LinearLayout>
 

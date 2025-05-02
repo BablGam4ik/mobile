@@ -33,8 +33,17 @@ class MainActivity : AppCompatActivity() {
             resultText.text = "Количество строчных латинских букв: $lowercaseCount"
         }
     }
+    private fun replaceDigitsWithSpaces(input: String): String {
+        return input.map { char ->
+            if (char.isDigit()) ' ' else char
+        }.joinToString("")
+    }
+
+    private fun countLowercaseLetters(input: String): Int {
+        return input.count { char ->
+            char in 'a'..'z'
+        }
+    }
 }
 
-private fun MainActivity.replaceDigitsWithSpaces(string: String) {}
 
-private fun MainActivity.countLowercaseLetters(string: String) {}

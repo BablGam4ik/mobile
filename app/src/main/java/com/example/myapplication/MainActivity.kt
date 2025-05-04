@@ -1,49 +1,116 @@
 package com.example.myapplication
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+private const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
+    private lateinit var trueButton: Button
+    private lateinit var falseButton: Button
+    private lateinit var nextButton: Button
+    private lateinit var questionTextView:
+            TextView
+
+    private val questionBank = listOf(
+        Question(R.string.question_australia, true),
+        Question(R.string.question_oceans,
+            true),
+        Question(R.string.question_mideast,
+            false),
+        Question(R.string.question_africa,
+            false),
+        Question(R.string.question_americas
+            , true),
+        Question(R.string.question_asia,
+            true))
+    private var currentIndex = 0
+    override fun onCreate(
+        savedInstanceState:
+        Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG,
+            "onCreate(Bundle?) called")
         setContentView(R.layout.activity_main)
+        trueButton =
+            findViewById(R.id.true_button)
+        falseButton =
+            findViewById(R.id.false_button)
+        nextButton =
+            findViewById(R.id.next_button)
+        questionTextView =
+            findViewById(R.id.question_text_view)
+        trueButton.setOnClickListener { view: View ->
 
-        val inputField = findViewById<EditText>(R.id.inputString)
-        val processButton = findViewById<Button>(R.id.processButton)
-        val resultText = findViewById<TextView>(R.id.resultText)
-        val modifiedText = findViewById<TextView>(R.id.modifiedText)
-
-        processButton.setOnClickListener {
-            val inputString = inputField.text.toString()
-
-            if (inputString.isEmpty()) {
-                Toast.makeText(this, "Введите строку", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-
-            val modifiedString = replaceDigitsWithSpaces(inputString)
-            modifiedText.text = "Модифицированная строка: \"$modifiedString\""
-
-
-            val lowercaseCount = countLowercaseLetters(inputString)
-            resultText.text = "Количество строчных латинских букв: $lowercaseCount"
+            checkAnswer(true)
         }
+
+        falseButton.setOnClickListener { view: View ->
+
+            checkAnswer(false)
+        }
+        nextButton.setOnClickListener {
+            currentIndex = (currentIndex + 1) %
+                    questionBank.size
+                updateQuestion()
+        }
+
+        updateQuestion()
+
     }
-    private fun replaceDigitsWithSpaces(input: String): String {
-        return input.map { char ->
-            if (char.isDigit()) ' ' else char
-        }.joinToString("")
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG,
+            "onStart() called")
+    }
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG,
+            "onResume() called")
+    }
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG,
+            "onPause() called")
+    }
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG,
+            "onStop() called")
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG,
+            "onDestroy() called")
     }
 
-    private fun countLowercaseLetters(input: String): Int {
-        return input.count { char ->
-            char in 'a'..'z'
-        }
+    private fun updateQuestion() {
+        val questionTextResId =
+            questionBank[currentIndex].textResId
+        questionTextView.setText(questionTextResId)
     }
+    private fun checkAnswer(userAnswer:
+                            Boolean) {
+        val correctAnswer =
+            questionBank[currentIndex].answer
+        val messageResId = if (userAnswer ==
+            correctAnswer) {
+            R.string.correct_toast
+        } else {
+            R.string.incorrect_toast
+        }
+        Toast.makeText(this, messageResId,
+            Toast.LENGTH_SHORT)
+            .show()
+    }
+
 }
+
+
+
+
 
 

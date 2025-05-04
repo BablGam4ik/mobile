@@ -72,6 +72,14 @@ class MainActivity : AppCompatActivity() {
 
         trueButton.visibility = View.VISIBLE
         falseButton.visibility = View.VISIBLE
+
+        if (currentIndex < questionBank.size - 1) {
+            nextButton.isEnabled = true
+            nextButton.visibility = View.VISIBLE
+        } else {
+            nextButton.isEnabled = false
+            nextButton.visibility = View.INVISIBLE
+        }
     }
 
     private fun checkAnswer(userAnswer: Boolean) {
@@ -85,6 +93,11 @@ class MainActivity : AppCompatActivity() {
 
         trueButton.visibility = View.INVISIBLE
         falseButton.visibility = View.INVISIBLE
+
+        if (currentIndex == questionBank.size - 1) {
+            nextButton.isEnabled = false
+            nextButton.visibility = View.INVISIBLE
+        }
     }
 
     companion object {

@@ -69,6 +69,9 @@ class MainActivity : AppCompatActivity() {
             return
         }
         questionTextView.setText(question.textResId)
+
+        trueButton.visibility = View.VISIBLE
+        falseButton.visibility = View.VISIBLE
     }
 
     private fun checkAnswer(userAnswer: Boolean) {
@@ -79,6 +82,9 @@ class MainActivity : AppCompatActivity() {
             R.string.incorrect_toast
         }
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show()
+
+        trueButton.visibility = View.INVISIBLE
+        falseButton.visibility = View.INVISIBLE
     }
 
     companion object {

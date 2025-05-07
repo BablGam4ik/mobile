@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ class CheatActivity : AppCompatActivity() {
 
     private lateinit var answerTextView: TextView
     private lateinit var showAnswerButton: Button
+    private lateinit var apiVersionText: TextView
     private var answerIsTrue = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +29,10 @@ class CheatActivity : AppCompatActivity() {
 
         answerTextView = findViewById(R.id.answer_text_view)
         showAnswerButton = findViewById(R.id.show_answer_button)
+        apiVersionText = findViewById(R.id.api_version_text) // Добавляем TextView для версии API
+
+        // Устанавливаем информацию о версии Android
+        apiVersionText.text = "Android ${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})"
 
         showAnswerButton.setOnClickListener {
             val answerText = when {

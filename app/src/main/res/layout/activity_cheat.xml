@@ -25,5 +25,10 @@ tools:context="com.bignerdranch.android.geo quiz.CheatActivity">
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/show_answer_button"/>
-
+    <TextView
+        android:id="@+id/api_version_text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="API: "
+    android:layout_margin="16dp" />
 </LinearLayout>

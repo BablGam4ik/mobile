@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Context
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     private var correctAnswers = 0
     private var answeredQuestions = 0
+
 
 
     private val cheatLauncher = registerForActivityResult(
@@ -140,5 +142,18 @@ class MainActivity : AppCompatActivity() {
         private const val KEY_ANSWERED = "answered_questions"
 
     }
+    private fun updateCheatButton() {
+        val sharedPref = getPreferences(Context.MODE_PRIVATE)
+        val cheatCount = sharedPref.getInt("cheat_count", 0)
+        val cheatsLeft = 3 - cheatCount
 
+        cheatButton.text = "Подсказка ($cheatsLeft осталось)"
+        cheatButton.isEnabled = cheatsLeft > 0
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateCheatButton()
+    }
 }
+

@@ -1,6 +1,8 @@
-package com.example.myapplication
+package com.example.myapplication.fragments
 
-import Crime
+import com.example.myapplication.R
+import com.example.myapplication.models.Crime
+
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,9 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
-import android.widget.CompoundButton
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import java.util.Date
+import java.util.UUID
 
 class CrimeFragment : Fragment() {
     private lateinit var crime: Crime
@@ -21,7 +24,12 @@ class CrimeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        crime = Crime()
+        crime = Crime(
+            id = UUID.randomUUID(),
+            title = "",
+            date = Date(),
+            isSolved = false
+        )
     }
 
     override fun onCreateView(
@@ -31,9 +39,9 @@ class CrimeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_crime, container, false)
 
-        titleField = view.findViewById(R.id.crime_title) as EditText
-        dateButton = view.findViewById(R.id.crime_date) as Button
-        solvedCheckBox = view.findViewById(R.id.crime_solved) as CheckBox
+        titleField = view.findViewById(R.id.crime_title)
+        dateButton = view.findViewById(R.id.crime_date)
+        solvedCheckBox = view.findViewById(R.id.crime_solved)
 
         dateButton.apply {
             text = crime.date.toString()
@@ -47,35 +55,19 @@ class CrimeFragment : Fragment() {
         super.onStart()
 
         val titleWatcher = object : TextWatcher {
-            override fun beforeTextChanged(
-                sequence: CharSequence?,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
-                // Это пространство оставлено пустым специально
+            override fun beforeTextChanged(sequence: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(sequence: CharSequence?, start: Int, before: Int, count: Int) {
+                crime = crime.copy(title = sequence?.toString() ?: "")
             }
 
-            override fun onTextChanged(
-                sequence: CharSequence?,
-                start: Int,
-                before: Int,
-                count: Int
-            ) {
-                crime.title = sequence.toString()
-            }
-
-            override fun afterTextChanged(sequence: Editable?) {
-                // И это
-            }
+            override fun afterTextChanged(sequence: Editable?) {}
         }
 
         titleField.addTextChangedListener(titleWatcher)
 
-        solvedCheckBox.apply {
-            setOnCheckedChangeListener { _, isChecked ->
-                crime.isSolved = isChecked
-            }
+        solvedCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            crime = crime.copy(isSolved = isChecked)
         }
     }
 }

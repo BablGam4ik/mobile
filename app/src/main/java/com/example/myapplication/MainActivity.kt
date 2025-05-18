@@ -1,24 +1,20 @@
 package com.example.myapplication
+
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-
+import androidx.fragment.app.commit
+import com.example.myapplication.fragments.CrimeListFragment
 
 
 class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState:
-                          Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val currentFragment =
-            supportFragmentManager.findFragmentById(R.id.fragment_container)
-        if (currentFragment == null) {
-            val fragment = CrimeFragment()
-            supportFragmentManager
-                .beginTransaction()
-                .add(R.id.fragment_container,
-                    fragment)
-                .commit()
+
+        if (supportFragmentManager.findFragmentById(R.id.fragment_container) == null) {
+            supportFragmentManager.commit {
+                add(R.id.fragment_container, CrimeListFragment())
+            }
         }
     }
 }
-

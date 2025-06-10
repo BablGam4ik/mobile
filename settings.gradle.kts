@@ -1,26 +1,24 @@
 pluginManagement {
     repositories {
-        google()
+        google {
+            content {
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+                includeGroupByRegex("androidx.*")
+            }
+        }
         mavenCentral()
         gradlePluginPortal()
     }
 }
-
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
     }
-
-    // ЕДИНСТВЕННЫЙ вызов from() для versionCatalogs
-    //versionCatalogs {
-    // create("libs") {
-    //   from(files("gradle/libs.versions.toml"))
-    // }
-    // }
-//}
-
-    rootProject.name = "My Application"
-    include(":app")
 }
+
+rootProject.name = "CriminalIntent"
+include(":app")
+ 
